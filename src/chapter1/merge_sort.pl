@@ -2,8 +2,8 @@
 use strict;
 use warnings;
 
+# main
 my @lines;
-
 open (READ, "<", "./merge_sort.txt");
 while(<READ>){
     chomp;
@@ -13,7 +13,8 @@ close READ;
 
 mergeSort(\@lines);
 
-foreach(@lines){ print $_."\n"; } 
+print join(',', @lines);
+
 
 sub mergeSort{
     my $a = shift;
@@ -30,25 +31,25 @@ sub mergeSort{
 
         mergeSort(\@a1);
         mergeSort(\@a2);
-
         merge(\@a1, \@a2, $a);
-    
     }
 }
 
 sub merge{
     my $a1 = shift;
     my $a2 = shift;
-    my $a = shift;
+    my $a  = shift;
 
     my $a1_cnt = @$a1;
     my $a2_cnt = @$a2;
 
-    my $i = 0;
-    my $j = 0;
+    my $i = 0; # a1 index
+    my $j = 0; # a2 index
 
     while($i < $a1_cnt || $j < $a2_cnt){
-        if ($j >= $a2_cnt || ( $i < $a1_cnt && $a1->[$i] < $a2->[$j]) ){
+        if ( $j >= $a2_cnt || 
+           ( $i < $a1_cnt  && $a1->[$i] < $a2->[$j])
+        ){
             $a->[$i+$j] = $a1->[$i];
             $i++;
         }
