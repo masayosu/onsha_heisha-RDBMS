@@ -3,45 +3,42 @@ use strict;
 use warnings;
 
 # main
-my @lines;
-open (READ, "<", "./merge_sort.txt");
+my $lines = [];
+open READ, "<", "./merge_sort.txt";
 while(<READ>){
     chomp;
-    push @lines, $_;
+    push @$lines, $_;
 }
 close READ;
 
-mergeSort(\@lines);
+mergeSort($lines);
 
-print join(',', @lines);
-
+print join(',', @$lines);
 
 sub mergeSort{
     my $a = shift;
-    my $a_cnt = @$a;
+    my $a_cnt = scalar @$a;
 
     if ($a_cnt > 1) {
         my $m = int($a_cnt / 2);
         my $n = $a_cnt - $m; 
     
-        my @a1;
-        my @a2;
-        for( my $i = 0; $i < $m; $i++){ push @a1, $a->[$i];}
-        for( my $i = 0; $i < $n; $i++){ push @a2, $a->[$m + $i];}
+        my $a1 = [];
+        my $a2 = [];
+        for( my $i = 0; $i < $m; $i++){ push @$a1, $a->[$i];}
+        for( my $i = 0; $i < $n; $i++){ push @$a2, $a->[$m + $i];}
 
-        mergeSort(\@a1);
-        mergeSort(\@a2);
-        merge(\@a1, \@a2, $a);
+        mergeSort($a1);
+        mergeSort($a2);
+        merge($a1, $a2, $a);
     }
 }
 
 sub merge{
-    my $a1 = shift;
-    my $a2 = shift;
-    my $a  = shift;
+    my ($a1, $a2, $a) = @_;
 
-    my $a1_cnt = @$a1;
-    my $a2_cnt = @$a2;
+    my $a1_cnt = scalar @$a1;
+    my $a2_cnt = scalar @$a2;
 
     my $i = 0; # a1 index
     my $j = 0; # a2 index
