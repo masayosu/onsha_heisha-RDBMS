@@ -41,13 +41,19 @@ SQL文の影響を受けるデータ量に応じてRollbackセグメントなど
 
 2つのトランザクションが同じデータに対して書き込みを行うと、最初に書いたデータが失われてしまう。
 
+![LostUpdate](img/LostUpdate.png)
+
 - ダーティリード（Dirty Read）
 
 あるトランザクションが変更中の未確定のデータを別のトランザクションで読み込んでしまう。
 
+![DirtyRead](img/DirtyRead.png)
+
 - 非再現リード（Unrepeatable Read）
 
 あるトランザクションが値を変更した場合、別のトランザクションから同じデータを参照すると、更新の前と後で値が変わってしまう。
+
+![UnrepeatableRead](img/UnrepeatableRead.png)
 
 
 ## トランザクションの干渉を防ぐ～ロックのメカニズ～
@@ -89,5 +95,7 @@ SQL文の影響を受けるデータ量に応じてRollbackセグメントなど
 	- RDBMSでは２相ロック(2PL:Two-Phase Locking)と呼ばれるルールに従うことが多い
 	- トランザクション中ではロックの開放はすべてロックを取得した後に行われなければならない（デッドロック対処）
         
+![2phaseLock](img/2phaseLock.png)
+
 
 ## まとめ
